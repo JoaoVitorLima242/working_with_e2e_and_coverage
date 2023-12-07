@@ -2,6 +2,24 @@ const http = require("http");
 
 const PORT = 3000;
 
-const handler = (req, res) => res.end("ok");
+const routes = {
+    '/contact:get': (req, res) => {
+        res.write('Contact Us Page')
+        return res.end()
+    },
 
-const app = http.createServer(handler).listen(PORT, () => console.log("Running at" + PORT));
+}
+
+const handler = (req, res) => {
+  const { url, method } = req;
+
+  const routeKey = `${url.toLowerCase()}:${method.toLowerCase()}`
+
+  const chosen = routes[routeKey]
+
+  return chosen(req, res);
+};
+
+const app = http
+  .createServer(handler)
+  .listen(PORT, () => console.log("Running at " + PORT));
