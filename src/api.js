@@ -23,7 +23,6 @@ const routes = {
     if (isUsernameDifferent || isPasswordDifferent) {
       res.writeHead(401);
       return res.end("Login failed");
-      ß;
     }
 
     return res.end();
