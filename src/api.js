@@ -15,9 +15,15 @@ const routes = {
   "/login:post": async (req, res) => {
     const { username, password } = JSON.parse(await once(req, "data"));
 
-    if(username !== DEFAULT_USER.username || password !== DEFAULT_USER.password) {
-        res.writeHead(401);
-        return res.end('Login failed');
+    const isUsernameDifferent =
+      username.toLocaleLowerCase() !==
+      DEFAULT_USER.username.toLocaleLowerCase();
+    const isPasswordDifferent = password !== DEFAULT_USER.password;
+
+    if (isUsernameDifferent || isPasswordDifferent) {
+      res.writeHead(401);
+      return res.end("Login failed");
+      ß;
     }
 
     return res.end();
@@ -43,7 +49,7 @@ const app = http
   .listen(PORT, () => console.log("Running at " + PORT));
 
 /* 
-    ROUTE LOGIN = curl -X POST --data '{"username": "username", "password": "1234"}'  localhost:3000/login
+    ROUTE LOGIN = curl -X POST --data '{"username": "Joaozin", "password": "123"}'  localhost:3000/login
     ROUTE CONTACT = curl localhost:3000/contact
 
 */
