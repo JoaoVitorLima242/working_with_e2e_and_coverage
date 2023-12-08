@@ -7,6 +7,10 @@ const DEFAULT_USER = {
   password: "123",
 };
 
+const isUserInvalid = (username, password) =>
+  username.toLocaleLowerCase() !== DEFAULT_USER.username.toLocaleLowerCase() ||
+  password !== DEFAULT_USER.password;
+
 const routes = {
   "/contact:get": (req, res) => {
     res.write("Contact Us Page");
@@ -15,17 +19,12 @@ const routes = {
   "/login:post": async (req, res) => {
     const { username, password } = JSON.parse(await once(req, "data"));
 
-    const isUsernameDifferent =
-      username.toLocaleLowerCase() !==
-      DEFAULT_USER.username.toLocaleLowerCase();
-    const isPasswordDifferent = password !== DEFAULT_USER.password;
-
-    if (isUsernameDifferent || isPasswordDifferent) {
+    if (isUserInvalid(username, password)) {
       res.writeHead(401);
       return res.end("Login failed");
     }
 
-    return res.end();
+    return res.end('Logged!');
   },
   notFound: (req, res) => {
     res.writeHead(404);
