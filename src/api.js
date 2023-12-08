@@ -24,7 +24,7 @@ const routes = {
       return res.end("Login failed");
     }
 
-    return res.end('Logged!');
+    return res.end("Logged!");
   },
   notFound: (req, res) => {
     res.writeHead(404);
@@ -46,6 +46,7 @@ const app = http
   .createServer(handler)
   .listen(PORT, () => console.log("Running at " + PORT));
 
+module.exports = app;
 /* 
     ROUTE LOGIN VALID= curl -i -X POST --data '{"username": "Joaozin", "password": "123"}'  localhost:3000/login
     ROUTE LOGIN INVALID = curl -i -X POST --data '{"username": "Joaozin", "password": "123456"}'  localhost:3000/login
