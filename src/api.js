@@ -47,7 +47,8 @@ const app = http
   .listen(PORT, () => console.log("Running at " + PORT));
 
 /* 
-    ROUTE LOGIN = curl -X POST --data '{"username": "Joaozin", "password": "123"}'  localhost:3000/login
+    ROUTE LOGIN VALID= curl -i -X POST --data '{"username": "Joaozin", "password": "123"}'  localhost:3000/login
+    ROUTE LOGIN INVALID = curl -i -X POST --data '{"username": "Joaozin", "password": "123456"}'  localhost:3000/login
     ROUTE CONTACT = curl localhost:3000/contact
 
 */
