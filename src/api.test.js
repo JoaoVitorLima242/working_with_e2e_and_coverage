@@ -4,6 +4,16 @@ const assert = require("assert");
 const app = require("./api");
 
 describe("API Suite test", () => {
+  describe("notFound - 404", () => {
+    it("should request a nonexistent page and return HTTP Status 404", async () => {
+      const response = await supertest(app)
+        .get("/nonexisting-page")
+        .expect(404);
+
+      assert.strictEqual(response.text, "Not found");
+    });
+  });
+
   describe("/contact", () => {
     it("should request the contact route and return HTTP Status 200", async () => {
       const response = await supertest(app).get("/contact").expect(200);
