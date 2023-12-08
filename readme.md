@@ -14,6 +14,6 @@ In our example, we created an API that has a contact route that returns a string
 
 For tests, we used pure NodeJS with supertest and nyc.
 - Supertest: Library to simulate HTTP requests.
-- NYC: Library to coverage the code.
+- NYC: Library to cover the code.
 
 If you run `npm run test:cov`, you can see that 100% of the code is being covered! NYC prevents that we forgot a line using warnings and files to show which lines we are not covering. 
