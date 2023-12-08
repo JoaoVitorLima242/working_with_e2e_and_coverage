@@ -1,21 +1,34 @@
-const { it, describe, afterEach, beforeEach } = require("mocha");
+const { it, describe } = require("mocha");
 const supertest = require("supertest");
 const assert = require("assert");
 const app = require("./api");
 
 describe("API Suite test", () => {
-  beforeEach((done) => {
-    const app = require("./api");
-    app.once("listening", done);
-  });
-  
-  afterEach((done) => app.close(done));
-
   describe("/contact", () => {
-    it("should request the contact page and return HTTP Status 200", async () => {
+    it("should request the contact route and return HTTP Status 200", async () => {
       const response = await supertest(app).get("/contact").expect(200);
 
       assert.strictEqual(response.text, "Contact Us Page");
+    });
+  });
+
+  describe("/login", () => {
+    it("should request the login route and return HTTP Status 200", async () => {
+      const response = await supertest(app)
+        .post("/login")
+        .send({ username: "joaozin", password: "123" })
+        .expect(200);
+
+      assert.strictEqual(response.text, "Logged!");
+    });
+
+    it("should request the login route and return HTTP Status 401 if the password or username is invalid", async () => {
+      const response = await supertest(app)
+        .post("/login")
+        .send({ username: "Matheus", password: "123" })
+        .expect(401);
+
+      assert.strictEqual(response.text, "Login failed");
     });
   });
 });
